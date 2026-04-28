@@ -26,9 +26,13 @@ window.NotionAI.Core.Constants = {
     MODELS: [
         { id: "claude-sonnet4.6", label: "Sonnet 4.6" },
         { id: "claude-opus4.6", label: "Opus 4.6" },
+        { id: "claude-opus4.7", label: "Opus 4.7" },
         { id: "gpt-5.2", label: "GPT-5.2" },
-        { id: "gemini-3.1pro", label: "Gemini 3.1 Pro" },
         { id: "gpt-5.4", label: "GPT-5.4" },
+        { id: "gpt-5.5", label: "GPT-5.5" },
+        { id: "gemini-2.5flash", label: "Gemini 2.5 Flash" },
+        { id: "gemini-3.1pro", label: "Gemini 3.1 Pro" },
+        { id: "kimi-2.6", label: "Kimi 2.6" },
     ],
 
     // Default Model
@@ -38,9 +42,13 @@ window.NotionAI.Core.Constants = {
     MODEL_DISPLAY_NAMES: {
         "claude-sonnet4.6": "Sonnet 4.6",
         "claude-opus4.6": "Opus 4.6",
+        "claude-opus4.7": "Opus 4.7",
         "gpt-5.2": "GPT-5.2",
+        "gpt-5.4": "GPT-5.4",
+        "gpt-5.5": "GPT-5.5",
+        "gemini-2.5flash": "Gemini 2.5 Flash",
         "gemini-3.1pro": "Gemini 3.1 Pro",
-        "gpt-5.4": "GPT-5.4"
+        "kimi-2.6": "Kimi 2.6",
     },
 
     // Time-based Greetings

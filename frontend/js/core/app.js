@@ -149,8 +149,9 @@ function populateModels() {
         }
         titleRow.appendChild(labelSpan);
 
-        // Add Beta badge for Gemini 3.1 and GPT 5.4
-        const needsBeta = model.label.toLowerCase().includes('gemini') || model.label.toLowerCase().includes('5.4');
+        // Add Beta badge for new/experimental models
+        const labelLower = model.label.toLowerCase();
+        const needsBeta = labelLower.includes('5.4') || labelLower.includes('5.5') || labelLower.includes('kimi');
         if (needsBeta) {
             const betaBadge = document.createElement('span');
             betaBadge.className = 'model-beta-badge';
@@ -161,15 +162,30 @@ function populateModels() {
         contentWrapper.appendChild(titleRow);
 
         // Add descriptions
-        if (model.label.toLowerCase().includes('sonnet') && model.label.includes('4.6')) {
+        if (labelLower.includes('sonnet') && model.label.includes('4.6')) {
             const desc = document.createElement('div');
             desc.className = 'model-desc';
             desc.textContent = 'Most efficient for everyday tasks';
             contentWrapper.appendChild(desc);
-        } else if (model.label.toLowerCase().includes('gemini')) {
+        } else if (model.label.includes('2.5 Flash')) {
+            const desc = document.createElement('div');
+            desc.className = 'model-desc';
+            desc.textContent = 'Native fast, no thinking delay';
+            contentWrapper.appendChild(desc);
+        } else if (model.label.includes('3.1 Pro')) {
             const desc = document.createElement('div');
             desc.className = 'model-desc';
             desc.textContent = 'Smart but Think longer';
+            contentWrapper.appendChild(desc);
+        } else if (model.label.includes('5.5')) {
+            const desc = document.createElement('div');
+            desc.className = 'model-desc';
+            desc.textContent = 'Latest GPT, experimental';
+            contentWrapper.appendChild(desc);
+        } else if (labelLower.includes('kimi')) {
+            const desc = document.createElement('div');
+            desc.className = 'model-desc';
+            desc.textContent = 'Moonshot AI, experimental';
             contentWrapper.appendChild(desc);
         }
 

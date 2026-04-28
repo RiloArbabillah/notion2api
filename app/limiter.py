@@ -1,6 +1,12 @@
+import os
+
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from app.config import is_lite_mode, is_standard_mode
+
+# DISABLE_RATE_LIMIT=True 时关闭限流（调试用）
+_disable_flag = os.getenv("DISABLE_RATE_LIMIT", "").strip().lower()
+_rate_limit_disabled = _disable_flag == "true"
 
 # 根据 APP_MODE 动态设置速率限制
 # Lite 模式：30/minute（单轮问答响应快，3-5秒/次）
@@ -13,4 +19,8 @@ elif is_standard_mode():
 else:
     default_limit = "20/minute"
 
-limiter = Limiter(key_func=get_remote_address, default_limits=[default_limit])
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=[] if _rate_limit_disabled else [default_limit],
+    enabled=not _rate_limit_disabled,
+)

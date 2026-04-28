@@ -97,8 +97,12 @@ uvicorn app.server:app --host 0.0.0.0 --port 8000
 |---|---|
 | `claude-sonnet4.6` | Best balance of performance and speed! (**Most recommended**, most optimized, most reliable) |
 | `claude-opus4.6` | Stronger reasoning, but not recommended for frequent use |
-| `gemini-3.1pro` | Google model, currently suspended officially but **still accessible here**, no web search support |
-| `gpt-5.2` / `gpt-5.4` | Latest OpenAI models, also great |
+| `claude-opus4.7` | Latest Claude, even stronger reasoning |
+| `gpt-5.5` | Latest GPT model (Beta) |
+| `gemini-2.5flash` | **Native fast**, no thinking delay, highly recommended for quick tasks |
+| `gemini-3.1pro` | Google's strongest reasoning model |
+| `gpt-5.2` / `gpt-5.4` | OpenAI models, also great |
+| `kimi-2.6` | Moonshot AI model (Beta) |
 
 View full list: `GET http://localhost:8000/v1/models`
 
@@ -183,7 +187,7 @@ HOST_PORT=8080  # Use port 8080
 
 ## FAQ
 
-> For detailed error solutions, see [Issues & Troubleshooting](./issues.md)
+> For detailed error solutions, see [Issues & Troubleshooting](./docs/issues.md)
 
 ### 1. Thinking panel not showing?
 

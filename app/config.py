@@ -8,24 +8,38 @@ load_dotenv(override=True)
 REQUIRED_ACCOUNT_FIELDS = {"token_v2", "space_id", "user_id"}
 
 def load_accounts():
-    """从环境变量中加载 Notion 账号配置列表"""
-    accounts_json = os.getenv("NOTION_ACCOUNTS")
+    """
+    从 accounts.json 文件或环境变量 NOTION_ACCOUNTS 加载账号配置。
+    优先级：accounts.json > NOTION_ACCOUNTS 环境变量
+    """
+    # 优先从 accounts.json 文件读取
+    accounts_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "accounts.json")
+    accounts_json = None
+
+    if os.path.exists(accounts_file):
+        with open(accounts_file, "r", encoding="utf-8") as f:
+            accounts_json = f.read().strip()
+    
+    # 回退到环境变量
     if not accounts_json:
-        raise ValueError("环境变量 NOTION_ACCOUNTS 未设置或为空，请检查 .env 文件。")
+        accounts_json = os.getenv("NOTION_ACCOUNTS")
+
+    if not accounts_json:
+        raise ValueError("未找到账号配置：请创建 accounts.json 文件或设置 NOTION_ACCOUNTS 环境变量。")
     
     try:
         accounts = json.loads(accounts_json)
         if not isinstance(accounts, list) or len(accounts) == 0:
-            raise ValueError("NOTION_ACCOUNTS 格式不正确，应提供非空的 JSON 数组。")
+            raise ValueError("账号配置格式不正确，应提供非空的 JSON 数组。")
         for idx, account in enumerate(accounts):
             if not isinstance(account, dict):
-                raise ValueError(f"NOTION_ACCOUNTS[{idx}] 必须是对象。")
+                raise ValueError(f"账号配置[{idx}] 必须是对象。")
             missing = sorted(field for field in REQUIRED_ACCOUNT_FIELDS if not account.get(field))
             if missing:
-                raise ValueError(f"NOTION_ACCOUNTS[{idx}] 缺少必要字段: {', '.join(missing)}")
+                raise ValueError(f"账号配置[{idx}] 缺少必要字段: {', '.join(missing)}")
         return accounts
     except json.JSONDecodeError as e:
-        raise ValueError(f"解析 NOTION_ACCOUNTS 失败: {e}")
+        raise ValueError(f"解析账号配置失败: {e}")
 
 # 全局配置对象
 ACCOUNTS = load_accounts()

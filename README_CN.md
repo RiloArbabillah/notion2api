@@ -97,8 +97,12 @@ uvicorn app.server:app --host 0.0.0.0 --port 8000
 |---|---|
 | `claude-sonnet4.6` | 均衡性能与速度的绝佳选择！（**最推荐**，优化最多，最稳定可靠） |
 | `claude-opus4.6` | 推理能力较强，但不建议频繁使用 |
-| `gemini-3.1pro` | Google 模型，目前官方暂停使用，这里**还可访问**，但不支持联网搜索 |
-| `gpt-5.2` / `gpt-5.4` | OpenAI 最新模型，也不错 |
+| `claude-opus4.7` | 最新 Claude，推理能力更强 |
+| `gpt-5.5` | 最新 GPT 模型（Beta） |
+| `gemini-2.5flash` | **原生快速**，无思考延迟，快速任务强烈推荐 |
+| `gemini-3.1pro` | Google 最强推理模型 |
+| `gpt-5.2` / `gpt-5.4` | OpenAI 模型，也不错 |
+| `kimi-2.6` | Moonshot AI 模型（Beta） |
 
 查看完整列表：`GET http://localhost:8000/v1/models`
 
@@ -183,7 +187,7 @@ HOST_PORT=8080  # 使用 8080 端口
 
 ## 常见问题
 
-> 详细的错误解决方案，请查看 [问题排查指南](./issues_CN.md)
+> 详细的错误解决方案，请查看 [问题排查指南](./docs/issues_CN.md)
 
 ### 1. Thinking 面板不显示？
 

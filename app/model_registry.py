@@ -1,27 +1,39 @@
 MODEL_MAP: dict[str, str] = {
     "claude-opus4.6": "avocado-froyo-medium",
+    "claude-opus4.7": "apricot-sorbet-high",
     "claude-sonnet4.6": "almond-croissant-low",
+    "gemini-2.5flash": "vertex-gemini-2.5-flash",
     "gemini-3.1pro": "galette-medium-thinking",
     "gpt-5.2": "oatmeal-cookie",
     "gpt-5.4": "oval-kumquat-medium",
+    "gpt-5.5": "opal-quince-medium",
+    "kimi-2.6": "fireworks-kimi-k2.6",
 }
 
 NOTION_MODEL_REVERSE_MAP: dict[str, str] = {value: key for key, value in MODEL_MAP.items()}
 
 DISPLAY_NAMES: dict[str, str] = {
     "claude-opus4.6": "Claude Opus 4.6",
+    "claude-opus4.7": "Claude Opus 4.7",
     "claude-sonnet4.6": "Claude Sonnet 4.6",
+    "gemini-2.5flash": "Gemini 2.5 Flash",
     "gemini-3.1pro": "Gemini 3.1 Pro",
     "gpt-5.2": "GPT-5.2",
     "gpt-5.4": "GPT-5.4",
+    "gpt-5.5": "GPT-5.5",
+    "kimi-2.6": "Kimi 2.6",
 }
 
 MODEL_ICONS: dict[str, str] = {
     "claude-opus4.6": "✳️",
+    "claude-opus4.7": "✳️",
     "claude-sonnet4.6": "✳️",
+    "gemini-2.5flash": "✦",
     "gemini-3.1pro": "✦",
     "gpt-5.2": "⚙",
     "gpt-5.4": "⚙",
+    "gpt-5.5": "⚙",
+    "kimi-2.6": "🌙",
 }
 
 # 默认使用 Sonnet 4.6（速度和质量的最佳平衡）
@@ -32,7 +44,15 @@ def get_notion_model(model_name: str) -> str:
     return MODEL_MAP.get(model_name, MODEL_MAP[DEFAULT_MODEL])
 
 
+# 需要走 markdown-chat 的 Notion 内部代号（vertex- 前缀的模型）
+# Gemini 3.1 Pro (galette-medium-thinking) 已改为 workflow，不再走 markdown-chat
+MARKDOWN_CHAT_MODELS: set[str] = {
+    "vertex-gemini-2.5-flash",
+}
+
+
 def is_gemini_model(model_name: str) -> bool:
+    """判断是否为 Gemini 系列模型（用于 config block 构建等）"""
     standard_name = get_standard_model(model_name)
     if standard_name.startswith("gemini-"):
         return True
@@ -41,7 +61,13 @@ def is_gemini_model(model_name: str) -> bool:
 
 
 def get_thread_type(model_name: str) -> str:
-    if is_gemini_model(model_name):
+    """
+    根据模型确定 Notion thread type。
+    只有 vertex- 前缀的模型走 markdown-chat，其余全部走 workflow。
+    """
+    standard_name = get_standard_model(model_name)
+    notion_model = get_notion_model(standard_name)
+    if notion_model in MARKDOWN_CHAT_MODELS:
         return "markdown-chat"
     return "workflow"
 

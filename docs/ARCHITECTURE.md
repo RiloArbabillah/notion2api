@@ -64,13 +64,17 @@ app/
 
 ## Supported Models / 支持的模型
 
-| External Name / 对外名称 | Notion Internal Code / Notion 内部代号 |
-|---|---|
-| claude-opus4.6 | avocado-froyo-medium |
-| claude-sonnet4.6 | almond-croissant-low |
-| gemini-3.1pro | galette-medium-thinking |
-| gpt-5.2 | oatmeal-cookie |
-| gpt-5.4 | oval-kumquat-medium |
+| External Name / 对外名称 | Notion Internal Code / Notion 内部代号 | Thread Type |
+|---|---|---|
+| claude-opus4.6 | avocado-froyo-medium | workflow |
+| claude-opus4.7 | apricot-sorbet-high | workflow |
+| claude-sonnet4.6 | almond-croissant-low | workflow |
+| gemini-2.5flash | vertex-gemini-2.5-flash | markdown-chat |
+| gemini-3.1pro | galette-medium-thinking | workflow |
+| gpt-5.2 | oatmeal-cookie | workflow |
+| gpt-5.4 | oval-kumquat-medium | workflow |
+| gpt-5.5 | opal-quince-medium | workflow |
+| kimi-2.6 | fireworks-kimi-k2.6 | workflow |
 
 ---
 

@@ -13,6 +13,7 @@ venv/
 # Environment variables (SECURITY RISK)
 .env
 .env.*
+accounts.json
 
 # Data & Database
 data/
@@ -36,7 +37,6 @@ GEMINI.md
 CODEX.md
 CLAUDE.md
 ref/
-tests/
 *.md.bak
 
 # Backup and temporary files
