@@ -1,14 +1,11 @@
 /**
- * Constants Module
- * Defines all constants used across the application
+ * Constants Module — Notion AI Studio
  */
 
-// Initialize namespace
 window.NotionAI = window.NotionAI || {};
 window.NotionAI.Core = window.NotionAI.Core || {};
 
 window.NotionAI.Core.Constants = {
-    // Storage Keys
     STORAGE_KEYS: {
         API_KEY: 'claude_api_key',
         BASE_URL: 'claude_base_url',
@@ -16,13 +13,45 @@ window.NotionAI.Core.Constants = {
         THEME: 'theme'
     },
 
-    // API Endpoints
     API: {
         CHAT_COMPLETIONS: '/v1/chat/completions',
         DELETE_CONVERSATION: (id) => `/v1/conversations/${encodeURIComponent(id)}`
     },
 
-    // Model Definitions
+    // Model definitions with grouping
+    MODEL_GROUPS: [
+        {
+            label: 'Anthropic',
+            models: [
+                { id: "claude-sonnet4.6", label: "Sonnet 4.6", icon: "✳️", desc: "Fast & efficient" },
+                { id: "claude-opus4.6", label: "Opus 4.6", icon: "✳️" },
+                { id: "claude-opus4.7", label: "Opus 4.7", icon: "✳️", badge: "New" },
+            ]
+        },
+        {
+            label: 'OpenAI',
+            models: [
+                { id: "gpt-5.2", label: "GPT-5.2", icon: "⚙" },
+                { id: "gpt-5.4", label: "GPT-5.4", icon: "⚙" },
+                { id: "gpt-5.5", label: "GPT-5.5", icon: "⚙", badge: "Beta" },
+            ]
+        },
+        {
+            label: 'Google',
+            models: [
+                { id: "gemini-2.5flash", label: "Gemini 2.5 Flash", icon: "✦", desc: "No thinking delay" },
+                { id: "gemini-3.1pro", label: "Gemini 3.1 Pro", icon: "✦" },
+            ]
+        },
+        {
+            label: 'Moonshot',
+            models: [
+                { id: "kimi-2.6", label: "Kimi 2.6", icon: "🌙", badge: "Beta" },
+            ]
+        }
+    ],
+
+    // Flat model list (for backward compat)
     MODELS: [
         { id: "claude-sonnet4.6", label: "Sonnet 4.6" },
         { id: "claude-opus4.6", label: "Opus 4.6" },
@@ -35,10 +64,8 @@ window.NotionAI.Core.Constants = {
         { id: "kimi-2.6", label: "Kimi 2.6" },
     ],
 
-    // Default Model
     DEFAULT_MODEL: "claude-sonnet4.6",
 
-    // Display Name Mappings
     MODEL_DISPLAY_NAMES: {
         "claude-sonnet4.6": "Sonnet 4.6",
         "claude-opus4.6": "Opus 4.6",
@@ -51,18 +78,28 @@ window.NotionAI.Core.Constants = {
         "kimi-2.6": "Kimi 2.6",
     },
 
-    // Time-based Greetings
-    GREETINGS: {
-        EARLY_MORNING: "Early bird thinking",      // 5:00 - 9:00
-        MORNING: "Morning clarity",                // 9:00 - 11:30
-        MIDDAY: "Midday focus",                    // 11:30 - 13:30
-        AFTERNOON: "Afternoon momentum",           // 13:30 - 17:00
-        GOLDEN_HOUR: "Golden hour thinking",       // 17:00 - 19:00
-        EVENING: "Evening deep work",              // 19:00 - 22:00
-        NIGHT_OWL: "Night owl mode",               // 22:00 - 1:00
-        LATE_NIGHT: "Late night thinking"          // 1:00 - 5:00
+    MODEL_ICONS: {
+        "claude-sonnet4.6": "✳️",
+        "claude-opus4.6": "✳️",
+        "claude-opus4.7": "✳️",
+        "gpt-5.2": "⚙",
+        "gpt-5.4": "⚙",
+        "gpt-5.5": "⚙",
+        "gemini-2.5flash": "✦",
+        "gemini-3.1pro": "✦",
+        "kimi-2.6": "🌙",
     },
 
-    // Client Type Header
+    GREETINGS: {
+        EARLY_MORNING: "Early bird thinking",
+        MORNING: "Morning clarity",
+        MIDDAY: "Midday focus",
+        AFTERNOON: "Afternoon momentum",
+        GOLDEN_HOUR: "Golden hour thinking",
+        EVENING: "Evening deep work",
+        NIGHT_OWL: "Night owl mode",
+        LATE_NIGHT: "Late night thinking"
+    },
+
     CLIENT_TYPE: 'Web'
 };

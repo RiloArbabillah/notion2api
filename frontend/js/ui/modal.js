@@ -1,17 +1,11 @@
 /**
- * Modal Module
- * Manages modal dialogs (settings, rename, etc.)
+ * Modal Module — Notion AI Studio
  */
 
-// Initialize namespace
 window.NotionAI = window.NotionAI || {};
 window.NotionAI.UI = window.NotionAI.UI || {};
 
 window.NotionAI.UI.Modal = {
-    /**
-     * Opens rename modal for a chat
-     * @param {string} chatId - ID of chat to rename
-     */
     openRenameModal(chatId) {
         const chats = window.NotionAI.Core.State.get('chats');
         const chat = chats.find(c => c.id === chatId);
@@ -20,30 +14,19 @@ window.NotionAI.UI.Modal = {
         window.NotionAI.Core.State.set('chatToRename', chatId);
 
         const modal = document.getElementById('renameModal');
-        const content = document.getElementById('renameModalContent');
         const input = document.getElementById('renameModalInput');
 
         input.value = chat.title;
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        content.classList.remove('scale-95');
-        input.focus();
+        modal.classList.remove('hidden');
+        setTimeout(() => input.focus(), 50);
     },
 
-    /**
-     * Closes rename modal
-     */
     closeRenameModal() {
         const modal = document.getElementById('renameModal');
-        const content = document.getElementById('renameModalContent');
-
-        modal.classList.add('opacity-0', 'pointer-events-none');
-        content.classList.add('scale-95');
+        modal.classList.add('hidden');
         window.NotionAI.Core.State.set('chatToRename', null);
     },
 
-    /**
-     * Saves chat rename
-     */
     saveRename() {
         const chatId = window.NotionAI.Core.State.get('chatToRename');
         if (!chatId) return;
