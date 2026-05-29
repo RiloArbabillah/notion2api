@@ -12,7 +12,7 @@ Notion2API reverse-engineers the Notion AI web interface and exposes it as a sta
 
 - **OpenAI Compatible** — Standard `/v1/chat/completions` endpoint, streaming (SSE) and non-streaming
 - **Three Operation Modes** — Lite / Standard / Heavy to fit different use cases
-- **9 AI Models** — Claude Sonnet/Opus, GPT-5.x, Gemini, Kimi
+- **10 AI Models** — Claude Sonnet/Opus, GPT-5.x, Gemini, Kimi
 - **Thinking Panel** — Reasoning process display for all models
 - **Search Panel** — Web search queries and source links
 - **Multi-Account Pool** — Round-Robin load balancing with cooldown failover
@@ -126,7 +126,8 @@ Access the Web UI at `http://localhost:8000`.
 |---|---|
 | `claude-sonnet4.6` | Best balance of speed and quality — **most recommended** |
 | `claude-opus4.6` | Stronger reasoning, use sparingly |
-| `claude-opus4.7` | Latest Claude, strongest reasoning |
+| `claude-opus4.7` | Stronger reasoning |
+| `claude-opus4.8` | Newest Claude, strongest reasoning |
 | `gpt-5.5` | Latest GPT (Beta) |
 | `gpt-5.4` | OpenAI model |
 | `gpt-5.2` | OpenAI model |

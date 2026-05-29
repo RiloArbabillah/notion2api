@@ -25,7 +25,8 @@ window.NotionAI.Core.Constants = {
             models: [
                 { id: "claude-sonnet4.6", label: "Sonnet 4.6", icon: "✳️", desc: "Fast & efficient" },
                 { id: "claude-opus4.6", label: "Opus 4.6", icon: "✳️" },
-                { id: "claude-opus4.7", label: "Opus 4.7", icon: "✳️", badge: "New" },
+                { id: "claude-opus4.7", label: "Opus 4.7", icon: "✳️" },
+                { id: "claude-opus4.8", label: "Opus 4.8", icon: "✳️", badge: "New" },
             ]
         },
         {
@@ -56,6 +57,7 @@ window.NotionAI.Core.Constants = {
         { id: "claude-sonnet4.6", label: "Sonnet 4.6" },
         { id: "claude-opus4.6", label: "Opus 4.6" },
         { id: "claude-opus4.7", label: "Opus 4.7" },
+        { id: "claude-opus4.8", label: "Opus 4.8" },
         { id: "gpt-5.2", label: "GPT-5.2" },
         { id: "gpt-5.4", label: "GPT-5.4" },
         { id: "gpt-5.5", label: "GPT-5.5" },
@@ -70,6 +72,7 @@ window.NotionAI.Core.Constants = {
         "claude-sonnet4.6": "Sonnet 4.6",
         "claude-opus4.6": "Opus 4.6",
         "claude-opus4.7": "Opus 4.7",
+        "claude-opus4.8": "Opus 4.8",
         "gpt-5.2": "GPT-5.2",
         "gpt-5.4": "GPT-5.4",
         "gpt-5.5": "GPT-5.5",
@@ -82,6 +85,7 @@ window.NotionAI.Core.Constants = {
         "claude-sonnet4.6": "✳️",
         "claude-opus4.6": "✳️",
         "claude-opus4.7": "✳️",
+        "claude-opus4.8": "✳️",
         "gpt-5.2": "⚙",
         "gpt-5.4": "⚙",
         "gpt-5.5": "⚙",

@@ -1,6 +1,7 @@
 MODEL_MAP: dict[str, str] = {
     "claude-opus4.6": "avocado-froyo-medium",
     "claude-opus4.7": "apricot-sorbet-high",
+    "claude-opus4.8": "ambrosia-tart-high",
     "claude-sonnet4.6": "almond-croissant-low",
     "gemini-2.5flash": "vertex-gemini-2.5-flash",
     "gemini-3.1pro": "galette-medium-thinking",
@@ -15,6 +16,7 @@ NOTION_MODEL_REVERSE_MAP: dict[str, str] = {value: key for key, value in MODEL_M
 DISPLAY_NAMES: dict[str, str] = {
     "claude-opus4.6": "Claude Opus 4.6",
     "claude-opus4.7": "Claude Opus 4.7",
+    "claude-opus4.8": "Claude Opus 4.8",
     "claude-sonnet4.6": "Claude Sonnet 4.6",
     "gemini-2.5flash": "Gemini 2.5 Flash",
     "gemini-3.1pro": "Gemini 3.1 Pro",
@@ -27,6 +29,7 @@ DISPLAY_NAMES: dict[str, str] = {
 MODEL_ICONS: dict[str, str] = {
     "claude-opus4.6": "✳️",
     "claude-opus4.7": "✳️",
+    "claude-opus4.8": "✳️",
     "claude-sonnet4.6": "✳️",
     "gemini-2.5flash": "✦",
     "gemini-3.1pro": "✦",
