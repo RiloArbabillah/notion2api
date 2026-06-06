@@ -9,6 +9,9 @@ MODEL_MAP: dict[str, str] = {
     "gpt-5.4": "oval-kumquat-medium",
     "gpt-5.5": "opal-quince-medium",
     "kimi-2.6": "fireworks-kimi-k2.6",
+    "grok-4.3": "xigua-mochi-medium",
+    "grok-build0.1": "xinomavro-cake",
+    "deepseek-v4pro": "baseten-deepseek-v4-pro",
 }
 
 NOTION_MODEL_REVERSE_MAP: dict[str, str] = {value: key for key, value in MODEL_MAP.items()}
@@ -24,6 +27,9 @@ DISPLAY_NAMES: dict[str, str] = {
     "gpt-5.4": "GPT-5.4",
     "gpt-5.5": "GPT-5.5",
     "kimi-2.6": "Kimi 2.6",
+    "grok-4.3": "Grok 4.3",
+    "grok-build0.1": "Grok Build 0.1",
+    "deepseek-v4pro": "DeepSeek V4 Pro",
 }
 
 MODEL_ICONS: dict[str, str] = {
@@ -37,6 +43,9 @@ MODEL_ICONS: dict[str, str] = {
     "gpt-5.4": "⚙",
     "gpt-5.5": "⚙",
     "kimi-2.6": "🌙",
+    "grok-4.3": "⚡",
+    "grok-build0.1": "⚡",
+    "deepseek-v4pro": "🐋",
 }
 
 # 默认使用 Sonnet 4.6（速度和质量的最佳平衡）

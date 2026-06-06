@@ -26,7 +26,7 @@ window.NotionAI.Core.Constants = {
                 { id: "claude-sonnet4.6", label: "Sonnet 4.6", icon: "✳️", desc: "Fast & efficient" },
                 { id: "claude-opus4.6", label: "Opus 4.6", icon: "✳️" },
                 { id: "claude-opus4.7", label: "Opus 4.7", icon: "✳️" },
-                { id: "claude-opus4.8", label: "Opus 4.8", icon: "✳️", badge: "New" },
+                { id: "claude-opus4.8", label: "Opus 4.8", icon: "✳️" },
             ]
         },
         {
@@ -49,6 +49,19 @@ window.NotionAI.Core.Constants = {
             models: [
                 { id: "kimi-2.6", label: "Kimi 2.6", icon: "🌙", badge: "Beta" },
             ]
+        },
+        {
+            label: 'xAI',
+            models: [
+                { id: "grok-4.3", label: "Grok 4.3", icon: "⚡", badge: "New" },
+                { id: "grok-build0.1", label: "Grok Build 0.1", icon: "⚡", badge: "New" },
+            ]
+        },
+        {
+            label: 'DeepSeek',
+            models: [
+                { id: "deepseek-v4pro", label: "DeepSeek V4 Pro", icon: "🐋", badge: "New" },
+            ]
         }
     ],
 
@@ -64,6 +77,9 @@ window.NotionAI.Core.Constants = {
         { id: "gemini-2.5flash", label: "Gemini 2.5 Flash" },
         { id: "gemini-3.1pro", label: "Gemini 3.1 Pro" },
         { id: "kimi-2.6", label: "Kimi 2.6" },
+        { id: "grok-4.3", label: "Grok 4.3" },
+        { id: "grok-build0.1", label: "Grok Build 0.1" },
+        { id: "deepseek-v4pro", label: "DeepSeek V4 Pro" },
     ],
 
     DEFAULT_MODEL: "claude-sonnet4.6",
@@ -79,6 +95,9 @@ window.NotionAI.Core.Constants = {
         "gemini-2.5flash": "Gemini 2.5 Flash",
         "gemini-3.1pro": "Gemini 3.1 Pro",
         "kimi-2.6": "Kimi 2.6",
+        "grok-4.3": "Grok 4.3",
+        "grok-build0.1": "Grok Build 0.1",
+        "deepseek-v4pro": "DeepSeek V4 Pro",
     },
 
     MODEL_ICONS: {
@@ -92,6 +111,9 @@ window.NotionAI.Core.Constants = {
         "gemini-2.5flash": "✦",
         "gemini-3.1pro": "✦",
         "kimi-2.6": "🌙",
+        "grok-4.3": "⚡",
+        "grok-build0.1": "⚡",
+        "deepseek-v4pro": "🐋",
     },
 
     GREETINGS: {

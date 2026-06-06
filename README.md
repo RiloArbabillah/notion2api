@@ -12,7 +12,7 @@ Notion2API reverse-engineers the Notion AI web interface and exposes it as a sta
 
 - **OpenAI Compatible** — Standard `/v1/chat/completions` endpoint, streaming (SSE) and non-streaming
 - **Three Operation Modes** — Lite / Standard / Heavy to fit different use cases
-- **10 AI Models** — Claude Sonnet/Opus, GPT-5.x, Gemini, Kimi
+- **13 AI Models** — Claude Sonnet/Opus, GPT-5.x, Gemini, Kimi, Grok, DeepSeek
 - **Thinking Panel** — Reasoning process display for all models
 - **Search Panel** — Web search queries and source links
 - **Multi-Account Pool** — Round-Robin load balancing with cooldown failover
@@ -134,6 +134,9 @@ Access the Web UI at `http://localhost:8000`.
 | `gemini-2.5flash` | Native fast, no thinking delay — great for quick tasks |
 | `gemini-3.1pro` | Google's strongest reasoning model |
 | `kimi-2.6` | Moonshot AI (Beta) |
+| `grok-4.3` | xAI Grok 4.3 |
+| `grok-build0.1` | xAI Grok Build 0.1 |
+| `deepseek-v4pro` | DeepSeek V4 Pro |
 
 Full list via API: `GET http://localhost:8000/v1/models`
 
