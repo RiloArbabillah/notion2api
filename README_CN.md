@@ -182,7 +182,7 @@ for chunk in response:
 访问 `http://localhost:8000`，使用内置的 **Notion AI Studio** 界面：
 
 - **对话管理** — 新建、重命名、删除、收藏/置顶
-- **模型选择器** — 按服务商分组（Anthropic / OpenAI / Google / Moonshot）
+- **模型选择器** — 按服务商分组（Anthropic / OpenAI / Google / Moonshot / xAI / DeepSeek）
 - **Thinking 面板** — 可折叠的推理过程展示，带计时器
 - **Search 面板** — 可折叠的搜索查询和来源链接
 - **环境粒子动画** — 天气效果：默认 / 雪 / 雨 / 晴天 / 夜晚

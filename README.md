@@ -182,7 +182,7 @@ for chunk in response:
 Access `http://localhost:8000` for the built-in **Notion AI Studio** interface:
 
 - **Conversation Management** — Create, rename, delete, star/bookmark
-- **Model Selector** — Grouped by provider (Anthropic / OpenAI / Google / Moonshot)
+- **Model Selector** — Grouped by provider (Anthropic / OpenAI / Google / Moonshot / xAI / DeepSeek)
 - **Thinking Panel** — Collapsible reasoning display with elapsed timer
 - **Search Panel** — Collapsible web search queries and source links
 - **Ambient Animations** — Weather effects: default / snow / rain / sunny / night

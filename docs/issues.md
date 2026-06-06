@@ -198,4 +198,4 @@ docker-compose logs | grep "startup"
 
 ---
 
-*Last updated / 最后更新：2026-05*
+*Last updated / 最后更新：2026-06*
