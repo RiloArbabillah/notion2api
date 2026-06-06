@@ -137,8 +137,8 @@ notion2api/
 ├── .gitignore                    # Git 忽略规则
 ├── .dockerignore                 # Docker 构建忽略规则
 ├── login.py                      # 浏览器辅助登录脚本（CDP，自动提取 Notion 凭据）
-├── README.md                     # 项目说明（英文）
-└── README_CN.md                  # 项目说明（中文）
+├── README.md                     # 项目说明（中文，默认）
+└── README_EG.md                  # 项目说明（英文）
 ```
 
 ### 3.2 代码规模
