@@ -293,3 +293,13 @@ MIT License
 如果这个项目对你有帮助，请给个 Star ⭐
 
 *本项目使用 Claude Code 辅助完成。*
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=maverickxone%2Fnotion2api&type=date&legend=bottom-right">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=maverickxone/notion2api&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=maverickxone/notion2api&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=maverickxone/notion2api&type=date&legend=top-left" />
+ </picture>
+</a>
