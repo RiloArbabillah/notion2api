@@ -6,6 +6,8 @@
 
 Notion2API 对 Notion AI 网页接口进行逆向工程，将其封装为标准的 `/v1/chat/completions` 端点，可直接用于 Cherry Studio、Zotero 以及任何兼容 OpenAI 的客户端。
 
+2026.06.10: 由于我的notion是business试用，不能使用fable5模型，故无法更新，欢迎大家自己抓取模型名称后提交PR。（F12，Network-payload-runInferenceScript里面，最下侧请求展开获取model内部代号即可）
+
 ---
 
 ## 特性
