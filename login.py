@@ -21,9 +21,10 @@ from urllib.request import urlopen
 import requests
 from websocket import create_connection
 
-
-BASE_URL = "https://www.notion.so"
-AI_URL = "https://www.notion.so/ai"
+NOTION_URL = os.getenv("NOTION_URL", "")
+NOTION_DOMAIN = os.getenv("NOTION_DOMAIN", "")
+BASE_URL = NOTION_URL
+AI_URL = NOTION_URL + "/ai"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
@@ -349,7 +350,7 @@ def _session_for_token(token_v2: str, cookies: dict[str, str] | None = None) -> 
     for name, value in cookie_values.items():
         if not value:
             continue
-        session.cookies.set(name, value, domain="www.notion.so", path="/")
+        session.cookies.set(name, value, domain=NOTION_DOMAIN, path="/")
     return session
 
 

@@ -18,6 +18,8 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # 可通过环境变量覆盖 Notion 客户端版本号（Notion 更新后可能需要同步）
 NOTION_CLIENT_VERSION = os.getenv("NOTION_CLIENT_VERSION", "23.13.20260228.0625")
 
+NOTION_URL = os.getenv("NOTION_URL", "")
+
 
 class NotionUpstreamError(RuntimeError):
     """Notion 上游请求失败或返回异常内容。"""
@@ -53,8 +55,8 @@ class NotionOpusAPI:
             self.cookies = {}
         self.cookies["token_v2"] = self.token_v2
 
-        self.url = "https://www.notion.so/api/v3/runInferenceTranscript"
-        self.delete_url = "https://www.notion.so/api/v3/saveTransactions"
+        self.url = "" + NOTION_URL + "/api/v3/runInferenceTranscript"
+        self.delete_url = "" + NOTION_URL + "/api/v3/saveTransactions"
         self.account_key = self.user_email or self.user_id or "unknown-account"
 
         # 复用 cloudscraper 实例：保留 Cloudflare challenge cookie，避免每次请求都重新过验证
@@ -273,8 +275,8 @@ class NotionOpusAPI:
             "x-notion-active-user-header": self.user_id,
             "notion-audit-log-platform": "web",
             "notion-client-version": NOTION_CLIENT_VERSION,
-            "origin": "https://www.notion.so",
-            "referer": "https://www.notion.so/ai",
+            "origin": NOTION_URL,
+            "referer": NOTION_URL + "/ai",
             "cookie": cookie_header,
         }
 
