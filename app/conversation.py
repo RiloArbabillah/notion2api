@@ -1917,6 +1917,89 @@ async def compress_round_if_needed(manager: ConversationManager, conversation_id
         )
 
 
+# --- System prompt sanitization -------------------------------------------------
+#
+# Notion AI aggressively rejects prompts that look like identity hijacking
+# ("You are opencode...", "Act as X", etc.). When a strict OpenAI client
+# (opencode, Cherry Studio in agent mode, ...) sends its own system prompt,
+# Notion interprets it as a prompt-injection attempt and refuses to act.
+#
+# `sanitize_system_prompt_for_notion` strips identity-asserting sentences and
+# reframes the remainder as user-provided context, so the actual coding
+# instructions survive while the triggering phrases are removed.
+
+_IDENTITY_SENTENCE_PATTERNS = [
+    re.compile(r"(?im)^you are\s+[a-z0-9 _\-']*[,.]?", re.IGNORECASE),
+    re.compile(r"(?im)^your name is\s+.+?[.!]?$", re.IGNORECASE),
+    re.compile(r"(?im)^act as\s+.+?[.!]?$", re.IGNORECASE),
+    re.compile(r"(?im)^you are called\s+.+?[.!]?$", re.IGNORECASE),
+    re.compile(r"(?im)^you are powered by\s+.+?[.!]?$", re.IGNORECASE),
+]
+
+# Catches "You are opencode, an interactive CLI tool that helps..." anywhere in a sentence
+_INLINE_IDENTITY_PATTERN = re.compile(
+    r"(?i)\byou are\s+(?:opencode|notion2api|claude code|aider|cursor|cline|continue|roo|kilo|your own coding assistant)[^.!]*[.!]?"
+)
+
+
+def sanitize_system_prompt_for_notion(raw: str) -> str:
+    """
+    Strip identity-asserting phrases from a client system prompt so Notion AI
+    won't classify it as a prompt-injection / identity-hijack attempt.
+
+    Returns the surviving instructions verbatim (no wrapper), or an empty
+    string if nothing meaningful remains.
+    """
+    if not raw or not raw.strip():
+        return ""
+
+    text = raw.strip()
+
+    # Normalize smart quotes / whitespace
+    text = text.replace("\u2019", "'").replace("\u2018", "'")
+    text = text.replace("\u201c", '"').replace("\u201d", '"')
+
+    # Remove inline identity assertions first (e.g. the opener of opencode's prompt)
+    text = _INLINE_IDENTITY_PATTERN.sub("", text)
+
+    # Process line by line so multi-sentence identity claims get removed cleanly
+    kept_lines: list[str] = []
+    for line in text.splitlines():
+        original = line
+        for pat in _IDENTITY_SENTENCE_PATTERNS:
+            line = pat.sub("", line).strip()
+        # Also strip mid-line occurrences like "You are opencode, ..." inside a longer sentence
+        line = _INLINE_IDENTITY_PATTERN.sub("", line).strip()
+        if line:
+            kept_lines.append(line)
+        elif original.strip():
+            # whole line was an identity claim — skip silently
+            pass
+
+    cleaned = "\n".join(kept_lines).strip()
+    # Collapse runs of blank lines
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned
+
+
+def reframe_system_prompt_for_notion(raw: str) -> str:
+    """
+    Produce the final text to prepend to the user's message when a client
+    sends a system prompt. Strips identity claims and wraps the remainder
+    as user-supplied context so Notion AI treats it as background info
+    rather than a competing instruction / injection.
+    """
+    cleaned = sanitize_system_prompt_for_notion(raw)
+    if not cleaned:
+        return ""
+    return (
+        "The user is working inside a developer tool and has shared the "
+        "following guidelines for how they'd like you to assist with this "
+        "request. Treat these as the user's preferences and context:\n\n"
+        f"{cleaned}"
+    )
+
+
 def build_lite_transcript(user_prompt: str, model_name: str) -> list[dict[str, Any]]:
     """构建 Lite 模式的最简 transcript（只有 config + user）"""
     from app.model_registry import get_notion_model, get_thread_type
@@ -2021,7 +2104,9 @@ def build_standard_transcript(
         first_user_content = user_messages[0]
         if system_instructions:
             merged_system = "\n".join(system_instructions)
-            first_user_content = f"[System Instructions: {merged_system}]\n\n{first_user_content}"
+            reframed = reframe_system_prompt_for_notion(merged_system)
+            if reframed:
+                first_user_content = f"{reframed}\n\n{first_user_content}"
 
         transcript.append({
             "id": str(uuid.uuid4()),

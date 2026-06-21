@@ -469,8 +469,12 @@ def _prepare_messages(
         )
 
     if system_messages:
+        from app.conversation import reframe_system_prompt_for_notion
+
         merged_system_prompt = "\n".join(system_messages)
-        user_prompt = f"[System Instructions: {merged_system_prompt}]\n\n{user_prompt}"
+        reframed = reframe_system_prompt_for_notion(merged_system_prompt)
+        if reframed:
+            user_prompt = f"{reframed}\n\n{user_prompt}"
 
     return user_prompt, history_messages, raw_user_prompt
 
@@ -493,9 +497,11 @@ def _prepare_messages_lite(req_body: ChatCompletionRequest) -> str:
         )
 
     if system_messages:
-        user_prompt = (
-            f"[System Instructions: {' '.join(system_messages)}]\n\n{user_prompt}"
-        )
+        from app.conversation import reframe_system_prompt_for_notion
+
+        reframed = reframe_system_prompt_for_notion(" ".join(system_messages))
+        if reframed:
+            user_prompt = f"{reframed}\n\n{user_prompt}"
 
     return user_prompt
 
