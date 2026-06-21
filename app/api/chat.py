@@ -630,6 +630,7 @@ def _create_standard_stream_generator(
     model_name: str,
     first_item: Any,
     stream_gen: Iterable[Any],
+    client_type: str = "",
 ) -> Generator[str, None, None]:
     """
     Standard 模式流式生成器：使用前端定义的 SSE 事件类型
@@ -639,6 +640,10 @@ def _create_standard_stream_generator(
     - thinking_replace: 完整思考替换
     - search_metadata: 搜索结果
     - choices[0].delta.content: 正文内容
+
+    对非 web 客户端（如 opencode 等严格 OpenAI 兼容客户端），改用标准
+    OpenAI 格式输出 thinking（delta.reasoning_content）并跳过 search_metadata，
+    避免触发 strict type validation 错误。
     """
     streamed_content_accumulator = ""
     streamed_thinking_accumulator = ""
@@ -667,8 +672,14 @@ def _create_standard_stream_generator(
                 thinking_text = item.get("text", "")
                 if thinking_text:
                     streamed_thinking_accumulator += thinking_text
-                    # 输出 thinking_chunk 事件
-                    yield f"data: {json.dumps({'type': 'thinking_chunk', 'text': thinking_text}, ensure_ascii=False)}\n\n"
+                    if client_type == "web":
+                        # Web UI: 输出前端协议定义的 thinking_chunk 事件
+                        yield f"data: {json.dumps({'type': 'thinking_chunk', 'text': thinking_text}, ensure_ascii=False)}\n\n"
+                    else:
+                        # 严格 OpenAI 客户端（opencode 等）：输出标准 delta.reasoning_content
+                        yield _build_stream_chunk(
+                            response_id, model_name, thinking=thinking_text
+                        )
                 continue
 
             # Standard 模式：处理 search（收集起来，最后输出）
@@ -781,7 +792,8 @@ def _create_standard_stream_generator(
                 streamed_content_accumulator = final_reply
 
         # 输出搜索结果（使用前端定义的 search_metadata 类型）
-        if collected_search_sources or collected_search_queries:
+        # 非 web 客户端跳过，避免破坏严格 OpenAI type validation
+        if client_type == "web" and (collected_search_sources or collected_search_queries):
             search_metadata = {
                 "type": "search_metadata",
                 "searches": {
@@ -1104,12 +1116,14 @@ async def _handle_standard_request(
                     "Connection": "keep-alive",
                     "X-Accel-Buffering": "no",
                 }
+                client_type = request.headers.get("X-Client-Type", "").lower()
                 return StreamingResponse(
                     _create_standard_stream_generator(
                         response_id,
                         req_body.model,
                         first_item,
                         stream_gen,
+                        client_type=client_type,
                     ),
                     media_type="text/event-stream",
                     headers=stream_headers,
